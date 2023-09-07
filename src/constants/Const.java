@@ -6,7 +6,6 @@ public class Const {
     public static final String STRING_BIGINT = " BIGINT";
     public static final String STRING_FLOAT = " FLOAT";
     public static final String STRING_DOUBLE = " DOUBLE";
-    public static final String STRING_CHAR = " CHAR";
     public static final String STRING_VARCHAR = " VARCHAR";
     public static final String STRING_TEXT = " TEXT";
     public static final String STRING_DATETIME = " DATETIME";
