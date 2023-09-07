@@ -1,4 +1,4 @@
-package models;
+package classes;
 
 import annotations.*;
 
@@ -20,8 +20,10 @@ public class Staff {
         @Unique
         private String email;
         @NotNull
+        @ColumnName(name = "marriage")
         private boolean isMarriage;
         @NotNull
+        @ColumnName(name = "DoB")
         private LocalDate dateOfBirth;
 
         public Staff() {

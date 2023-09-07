@@ -11,6 +11,7 @@ public class Column {
     public boolean isNotNull;
     public boolean isUnique;
     public boolean hasMaxLength;
+    public boolean hasColumnName;
     public int maxLength;
 
     public Column() {

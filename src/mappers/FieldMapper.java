@@ -10,19 +10,28 @@ import java.time.LocalDateTime;
 
 
 public class FieldMapper {
+    private static final int STRING_DEFAULT_MAX_LENGTH = 256;
     private FieldMapper() {
     }
+
     public static Column fromField(Field field) {
         ColumnType columnType = getColumnType(field);
         if (columnType == null) return null;
         Column column = new Column();
         column.columnType = columnType;
-        column.name = field.getName();
+        column.maxLength = STRING_DEFAULT_MAX_LENGTH;
+
         column.isAutoIncrement = field.isAnnotationPresent(AutoIncrement.class);
         column.isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
         column.isNotNull = field.isAnnotationPresent(NotNull.class);
         column.isUnique = field.isAnnotationPresent(Unique.class);
         column.hasMaxLength = field.isAnnotationPresent(MaxLength.class);
+        column.hasColumnName = field.isAnnotationPresent(ColumnName.class);
+        if (column.hasColumnName) {
+            column.name = field.getDeclaredAnnotation(ColumnName.class).name();
+        } else {
+            column.name = field.getName();
+        }
         if (column.hasMaxLength) {
             column.maxLength = field.getDeclaredAnnotation(MaxLength.class).maxLength();
         }
@@ -32,6 +41,7 @@ public class FieldMapper {
 
         return column;
     }
+
     private static ColumnType getColumnType(Field field) {
         Class<?> fieldType = field.getType();
         ColumnType columnType;
