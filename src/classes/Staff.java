@@ -6,17 +6,15 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Staff {
-
         @PrimaryKey
         @AutoIncrement
+        @NotNull
         private long id;
-
-        @MaxLength(maxLength = 256)
         @NotNull
+        @MaxLength(bytes = 1024)
         private String name;
-
         @NotNull
-        @MaxLength(maxLength = 100)
+        @MaxLength(bytes = 50)
         @Unique
         private String email;
         @NotNull
@@ -28,7 +26,6 @@ public class Staff {
 
         public Staff() {
         }
-
         public Staff(long id, String name, String email, boolean isMarriage, LocalDate dateOfBirth) {
                 this.id = id;
                 this.name = name;
@@ -36,7 +33,6 @@ public class Staff {
                 this.isMarriage = isMarriage;
                 this.dateOfBirth = dateOfBirth;
         }
-
         @Override
         public String toString() {
                 return "Staff{" +

@@ -1,5 +1,6 @@
 package mysql;
 
+import exceptions.InvalidAnnotationsSetException;
 import mappers.FieldMapper;
 import models.Column;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static constants.Const.*;
+import static exceptions.InvalidAnnotationsSetException.PRIMARY_KEY_COUNT_MORE_THAN_2;
 
 public class SQLGenerator {
     public SQLGenerator() {
@@ -40,27 +42,27 @@ public class SQLGenerator {
         }
         String header = STRING_CREATE_TABLE + tClass.getSimpleName() + " (" + System.lineSeparator();
 
-        int primaryKeyCount = 0;
-        String primaryKeyName = "";
         List<String> columnStrings = new ArrayList<>();
         List<String> uniqueNameList = new ArrayList<>();
+        List<String> primaryKeyList = new ArrayList<>();
 
         for (Column column : columns) {
             if (column.isPrimaryKey) {
-                primaryKeyCount++;
-                primaryKeyName = column.name;
+                primaryKeyList.add(column.name);
             }
             if (column.isUnique) {
                 uniqueNameList.add(column.name);
             }
             columnStrings.add(column.toString());
         }
-        if (primaryKeyCount > 1) throw new RuntimeException("Не может быть более одного поля с аннотацией @PrimaryKey");
+        if (primaryKeyList.size() > 2) throw new InvalidAnnotationsSetException(PRIMARY_KEY_COUNT_MORE_THAN_2);
 
         StringBuilder footer = new StringBuilder();
-        if (primaryKeyCount == 1) {
-            footer.append(String.format(STRING_PRIMARY_KEY, primaryKeyName));
+
+        if (!primaryKeyList.isEmpty()) {
+            footer.append(String.format(STRING_PRIMARY_KEY, String.join(", ", primaryKeyList)));
         }
+
         if (!uniqueNameList.isEmpty()) {
             footer.append(String.format(STRING_UNIQUE, String.join(", ", uniqueNameList)));
         }

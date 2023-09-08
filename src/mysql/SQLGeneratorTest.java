@@ -1,7 +1,7 @@
 package mysql;
 
-import classes.test.TestClass1;
-import classes.test.TestClass2_2PrimaryKeys;
+import classes.test.*;
+import exceptions.InvalidAnnotationsSetException;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,25 +22,37 @@ class SQLGeneratorTest {
     public class Generate {
         @Test
         void return_correct_table_on_TestClass1() {
-            String expected = "CREATE TABLE TestClass1 (" + spr +
-                    "nickname VARCHAR(30) NOT NULL," + spr +
-                    "email VARCHAR(256) NOT NULL," + spr +
-                    "position INT NOT NULL AUTO_INCREMENT," + spr +
-                    "letter VARCHAR(1) NOT NULL," + spr +
+            String expected = "CREATE TABLE TestClass_Correct (" + spr +
+                    "nickname CHAR(30) NOT NULL," + spr +
+                    "email VARCHAR(1024) NOT NULL," + spr +
+                    "position INT AUTO_INCREMENT NOT NULL," + spr +
+                    "letter CHAR(1) NOT NULL," + spr +
                     "PRIMARY KEY(email)," + spr +
                     "UNIQUE(nickname)" + spr +
                     ");";
-            String actual = sqlGenerator.generateTable(TestClass1.class);
+            String actual = sqlGenerator.generateTable(TestClass_Correct.class);
             assertEquals(expected, actual);
         }
 
         @Test
-        void throws_RuntimeException_on_TestClass2_bcs_of_2_PrimaryKeys() {
-            assertThrows(RuntimeException.class, () -> sqlGenerator.generateTable(TestClass2_2PrimaryKeys.class));
+        void throws_InvalidAnnotationsSetException_on_TestClass2_bcs_of_3_PrimaryKeys() {
+            assertThrows(InvalidAnnotationsSetException.class, () -> sqlGenerator.generateTable(TestClass_3PrimaryKeys.class));
         }
         @Test
         void throws_IllegalArgumentException_on_class_without_empty_constructor() {
-            assertThrows(RuntimeException.class, () -> sqlGenerator.generateTable(Integer.class));
+            assertThrows(IllegalArgumentException.class, () -> sqlGenerator.generateTable(Integer.class));
+        }
+        @Test
+        void throws_InvalidAnnotationsSetException_on_class_with_AutoIncrement_without_int() {
+            assertThrows(InvalidAnnotationsSetException.class, () -> sqlGenerator.generateTable(TestClass_AutoIncrement_without_INT.class));
+        }
+        @Test
+        void throws_InvalidAnnotationsSetException_on_class_with_PrimaryKey_without_NotNull() {
+            assertThrows(InvalidAnnotationsSetException.class, () -> sqlGenerator.generateTable(TestClass_PR_Key_Null.class));
+        }
+        @Test
+        void throws_InvalidAnnotationsSetException_on_class_with_MaxLength_without_String() {
+            assertThrows(InvalidAnnotationsSetException.class, () -> sqlGenerator.generateTable(TestClass_MaxLength_without_String.class));
         }
     }
 

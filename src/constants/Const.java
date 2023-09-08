@@ -7,6 +7,7 @@ public class Const {
     public static final String STRING_FLOAT = " FLOAT";
     public static final String STRING_DOUBLE = " DOUBLE";
     public static final String STRING_VARCHAR = " VARCHAR";
+    public static final String STRING_CHAR = " CHAR";
     public static final String STRING_TEXT = " TEXT";
     public static final String STRING_DATETIME = " DATETIME";
     public static final String STRING_DATE = " DATE";
@@ -15,5 +16,8 @@ public class Const {
     public static final String STRING_CREATE_TABLE = "CREATE TABLE ";
     public static final String STRING_PRIMARY_KEY = "," + System.lineSeparator() + "PRIMARY KEY(%s)";
     public static final String STRING_UNIQUE = "," + System.lineSeparator() + "UNIQUE(%s)";
+    public static final int CHAR_DEFAULT_MAX_BYTES = 255;
+    public static final int CHAR_DEFAULT_MIN_BYTES = 1;
+    public static final int VARCHAR_DEFAULT_MAX_BYTES = 8000;
 
 }

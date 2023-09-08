@@ -4,15 +4,16 @@ import annotations.*;
 
 import java.util.Objects;
 
-public class TestClass1 {
-    public TestClass1() {
+public class TestClass_Correct {
+    public TestClass_Correct() {
     }
     @NotNull
-    @MaxLength(maxLength = 30)
+    @MaxLength(bytes = 30)
     @Unique
     private String nickname;
     @NotNull
     @PrimaryKey
+    @MaxLength(bytes = 1024)
     private String email;
 
     @AutoIncrement
@@ -22,7 +23,7 @@ public class TestClass1 {
     @ColumnName(name = "letter")
     private char someLetter;
 
-    public TestClass1(String nickname, String email, int position, char someLetter) {
+    public TestClass_Correct(String nickname, String email, int position, char someLetter) {
         this.nickname = nickname;
         this.email = email;
         this.position = position;
@@ -33,7 +34,7 @@ public class TestClass1 {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TestClass1 that = (TestClass1) o;
+        TestClass_Correct that = (TestClass_Correct) o;
         return position == that.position && someLetter == that.someLetter && Objects.equals(nickname, that.nickname) && Objects.equals(email, that.email);
     }
 

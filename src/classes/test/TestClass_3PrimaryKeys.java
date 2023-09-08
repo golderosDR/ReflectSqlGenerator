@@ -7,7 +7,7 @@ import annotations.PrimaryKey;
 
 import java.util.Objects;
 
-public class TestClass2_2PrimaryKeys {
+public class TestClass_3PrimaryKeys {
     @PrimaryKey
     @AutoIncrement
     @NotNull
@@ -16,13 +16,14 @@ public class TestClass2_2PrimaryKeys {
     @NotNull
     private String email;
     @NotNull
-    @MaxLength(maxLength = 256)
+    @PrimaryKey
+    @MaxLength(bytes = 256)
     private String name;
 
-    public TestClass2_2PrimaryKeys() {
+    public TestClass_3PrimaryKeys() {
     }
 
-    public TestClass2_2PrimaryKeys(Long id, String email, String name) {
+    public TestClass_3PrimaryKeys(Long id, String email, String name) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -32,7 +33,7 @@ public class TestClass2_2PrimaryKeys {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TestClass2_2PrimaryKeys that = (TestClass2_2PrimaryKeys) o;
+        TestClass_3PrimaryKeys that = (TestClass_3PrimaryKeys) o;
         return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(name, that.name);
     }
 
