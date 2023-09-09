@@ -1,5 +1,3 @@
-package fwrk;
-
 import classes.Staff;
 import mysql.SQLGenerator;
 

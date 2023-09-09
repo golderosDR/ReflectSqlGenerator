@@ -3,6 +3,7 @@ package classes.test;
 import annotations.*;
 
 import java.util.Objects;
+@TableName(tableName = "Correct test")
 
 public class TestClass_Correct {
     public TestClass_Correct() {

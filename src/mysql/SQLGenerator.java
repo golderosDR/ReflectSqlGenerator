@@ -1,5 +1,6 @@
 package mysql;
 
+import annotations.TableName;
 import exceptions.InvalidAnnotationsSetException;
 import mappers.FieldMapper;
 import models.Column;
@@ -40,7 +41,11 @@ public class SQLGenerator {
                 columns.add(column);
             }
         }
-        String header = STRING_CREATE_TABLE + tClass.getSimpleName() + " (" + System.lineSeparator();
+        String tableName = tClass.isAnnotationPresent(TableName.class) ?
+                tClass.getDeclaredAnnotation(TableName.class).tableName()
+                : tClass.getSimpleName();
+
+        String header = STRING_CREATE_TABLE + tableName + " (" + System.lineSeparator();
 
         List<String> columnStrings = new ArrayList<>();
         List<String> uniqueNameList = new ArrayList<>();

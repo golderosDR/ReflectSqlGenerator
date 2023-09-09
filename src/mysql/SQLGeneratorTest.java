@@ -22,7 +22,7 @@ class SQLGeneratorTest {
     public class Generate {
         @Test
         void return_correct_table_on_TestClass1() {
-            String expected = "CREATE TABLE TestClass_Correct (" + spr +
+            String expected = "CREATE TABLE Correct test (" + spr +
                     "nickname CHAR(30) NOT NULL," + spr +
                     "email VARCHAR(1024) NOT NULL," + spr +
                     "position INT AUTO_INCREMENT NOT NULL," + spr +
